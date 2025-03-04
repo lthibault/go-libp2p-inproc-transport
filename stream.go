@@ -286,3 +286,9 @@ func (p *pipe) Reset() error {
 	p.resetOnce.Do(func() { close(p.localReset) })
 	return nil
 }
+
+// ResetWithError resets the stream with the given error code.
+func (p *pipe) ResetWithError(code network.StreamErrorCode) error {
+	p.resetOnce.Do(func() { close(p.localReset) })
+	return nil
+}

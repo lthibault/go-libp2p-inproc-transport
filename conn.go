@@ -49,6 +49,16 @@ func (c *conn) Close() error {
 	return nil
 }
 
+// CloseWithError closes the connection with the given error code.
+func (c *conn) CloseWithError(code network.ConnErrorCode) error {
+	select {
+	case <-c.cq:
+	default:
+		close(c.cq)
+	}
+	return nil
+}
+
 func (c *conn) IsClosed() bool {
 	select {
 	case <-c.cq:
